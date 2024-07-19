@@ -67,10 +67,7 @@ export const checkUserAuth = createAsyncThunk('user/checkUserAuth', getUserApi);
 
 export const updateUser = createAsyncThunk('user/updateUser', updateUserApi);
 
-export const getUser = createAsyncThunk(
-  'user/getUser',
-  async () => await getUserApi()
-);
+export const getUser = createAsyncThunk('user/getUser', getUserApi);
 
 const userSlice = createSlice({
   name: 'user',
