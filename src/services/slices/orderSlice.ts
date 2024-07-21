@@ -20,7 +20,7 @@ interface OrderState {
   orders: TOrder[] | [];
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   constructorItems: {
     bun: {
       _id: '',
@@ -83,11 +83,12 @@ export const orderSlice = createSlice({
     moveDownIngredient(state, action) {
       const { ingredients } = state.constructorItems;
       const { index } = action.payload;
-      if (index > 0 && index < ingredients.length) {
+      if (index >= 0 && index < ingredients.length - 1) {
         const newIngredients = [...ingredients];
-        const tmp = newIngredients[index + 1];
-        newIngredients[index + 1] = newIngredients[index];
-        newIngredients[index] = tmp;
+        [newIngredients[index], newIngredients[index + 1]] = [
+          newIngredients[index + 1],
+          newIngredients[index]
+        ];
         state.constructorItems.ingredients = newIngredients;
       }
     },
