@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { getFeedsApi } from '@api';
-import { TOrdersData, TOrder } from '@utils-types';
+import { TOrdersData } from '@utils-types';
 
 interface FeedsState {
   feeds: TOrdersData;
@@ -9,7 +8,7 @@ interface FeedsState {
   error: string | null;
 }
 
-const initialState: FeedsState = {
+export const initialState: FeedsState = {
   feeds: {
     orders: [],
     total: 0,

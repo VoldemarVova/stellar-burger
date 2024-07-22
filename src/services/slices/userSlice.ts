@@ -24,12 +24,12 @@ interface TRegisterData {
   password: string;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   isAuthChecked: false,
   isAuthenticated: false,
   user: {
     email: '',
-    name: ' '
+    name: ''
   },
   isLoading: false,
   error: null
@@ -67,10 +67,7 @@ export const checkUserAuth = createAsyncThunk('user/checkUserAuth', getUserApi);
 
 export const updateUser = createAsyncThunk('user/updateUser', updateUserApi);
 
-export const getUser = createAsyncThunk(
-  'user/getUser',
-  async () => await getUserApi()
-);
+export const getUser = createAsyncThunk('user/getUser', getUserApi);
 
 const userSlice = createSlice({
   name: 'user',
@@ -94,6 +91,8 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.error = null;
+        state.isAuthenticated = true;
+        state.isAuthChecked = true;
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
@@ -139,6 +138,7 @@ const userSlice = createSlice({
         state.isAuthenticated = false;
       })
       .addCase(checkUserAuth.fulfilled, (state, action) => {
+        state.user = action.payload.user;
         state.isLoading = false;
         state.error = null;
         state.isAuthenticated = true;
@@ -169,6 +169,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.error = null;
+        state.isAuthChecked = true;
       });
   }
 });
