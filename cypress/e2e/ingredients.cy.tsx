@@ -1,12 +1,12 @@
 describe('доступность приложения', function () {
   it('сервис должен быть доступен по адресу localhost:4000', function () {
-    cy.visit('http://localhost:4000');
+    cy.visit('/');
   });
 });
 
 beforeEach(() => {
   cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' });
-  cy.visit('http://localhost:4000');
+  cy.visit('/');
 });
 
 describe('Тест добавления ингредиентов из списка в конструктор', () => {
@@ -54,21 +54,21 @@ describe('Тест модальных окон', () => {
 
 describe('Создание заказа', function () {
   beforeEach(function () {
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', {
+    cy.intercept('GET', '/api/ingredients', {
       fixture: 'ingredients.json'
     });
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/login', {
+    cy.intercept('GET', '/api/auth/login', {
       fixture: 'login.json'
     });
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/user', {
+    cy.intercept('GET', '/api/auth/user', {
       fixture: 'user.json'
     });
-    cy.intercept('POST', 'https://norma.nomoreparties.space/api/orders', {
+    cy.intercept('POST', '/api/orders', {
       fixture: 'order.json'
     });
     window.localStorage.setItem('refreshToken', JSON.stringify('refreshToken'));
     cy.setCookie('accessToken', JSON.stringify('accessToken'));
-    cy.visit('http://localhost:4000/');
+    cy.visit('/');
   });
 
   it('Тест добавления ингредиентов и отправки заказа', function () {
